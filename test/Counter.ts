@@ -42,15 +42,5 @@ describe("Counter contract", function () {
             // equal to our Signer's owner.
             expect(await hardhatToken.owner()).to.equal(owner.address);
         });
-
-        // it("encrypted balance", async function () {
-
-        //     const { hardhatToken, owner } = await loadFixture(deployCounterFixture);
-
-        //     const encryptedCounter = hardhatToken.add(fhevmjs.createInstance());
-        //     const balanceAlice = this.instances.alice.decrypt(this.contractAddress, encryptedCounter);
-
-        //     expect(balanceAlice).to.equal(10000 - 1337);
-        // })
     });
 });
