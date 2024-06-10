@@ -1,4 +1,4 @@
-/// npx tsx src/CompliantERC20/mint.ts 
+/// npx tsx src/CompliantERC20/mint.ts
 
 
 const { Wallet, Contract } = require('ethers');

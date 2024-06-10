@@ -10,7 +10,7 @@ const signer = new Wallet(process.env.ZAMA_PRIVATE_KEY, provider);
 const contractAddress = process.env.CompliantERC20;
 const contract = new Contract(contractAddress, abi, signer);
 
-const address2 = process.env.USER_2_PUBLIC_ADDRESS;
+const address2 = process.env.USER_3_PUBLIC_ADDRESS;
 
 const transfer = async () => {
     // encrypted transfer

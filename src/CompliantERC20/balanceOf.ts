@@ -11,7 +11,7 @@ const sender = process.env.ZAMA_PUBLIC_ADDRESS;
 const contractAddress = process.env.CompliantERC20;
 const contract = new Contract(contractAddress, abi, signer);
 
-const address2 = process.env.USER_2_PUBLIC_ADDRESS;
+const address2 = process.env.USER_3_PUBLIC_ADDRESS;
 const balanceOf = async () => {
     // generate public key for re-encrpytion after seeing it
     // using fhevm

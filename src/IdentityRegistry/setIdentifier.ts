@@ -11,14 +11,14 @@ const abi = require('../../artifacts/contracts/IdentityRegistry.sol/abi.json');
 
 const registrar = new Wallet(process.env.REGISTRAR_PRIVATE_KEY, provider);
 const contract = new Contract(process.env.IDENTITY_REGISTRY, abi, registrar);
-const address2 = process.env.USER_2_PUBLIC_ADDRESS;
+const address2 = process.env.USER_3_PUBLIC_ADDRESS;
 
 const setIdentifier = async () => {
     // generate public key for re-encrpytion after seeing it
     // using fhevm
     const fhevm: any = await getInstance();
     // adding birthdate as an identifier and the value encrypted.
-    const encryptedBirth = fhevm.encrypt64(27);
+    const encryptedBirth = fhevm.encrypt64(16);
     const transaction2 = await contract.setIdentifier(
         address2,
         'age',

@@ -13,8 +13,8 @@ export default buildModule("CompliantERC20", (m) => {
 
     //  send ctor params
     const CompliantERC20Module = m.contract("CompliantERC20",
-        ["0x6ED85b016595aC52d906BE57BC206C25ba4C9a56",
-            "0x239b6E9bfb054775249CDD34ad7218Db66Dba46C",
+        ["0x3949753b86798d361911b3A819A0722Fcba12747",
+            "0x05Fc3C9361eC0d1F6Ed50895Cb53c463D7de99Af",
             "COM_NAME", "COM_SYM"], {
     });
 

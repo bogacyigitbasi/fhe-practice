@@ -8,7 +8,7 @@ const abi = require('../../artifacts/contracts/IdentityRegistry.sol/abi.json');
 
 const registrar = new Wallet(process.env.REGISTRAR_PRIVATE_KEY, provider);
 const contract = new Contract(process.env.IDENTITY_REGISTRY, abi, registrar);
-const address2 = process.env.USER_2_PUBLIC_ADDRESS;
+const address2 = process.env.USER_3_PUBLIC_ADDRESS;
 
 const addDid = async () => {
     const transaction = await contract.addDid(
