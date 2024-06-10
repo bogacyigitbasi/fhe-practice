@@ -11,13 +11,12 @@ const contractAddress = process.env.ENCRYPTEDERC20_CONTRACT_ADDRESS;
 const contract = new Contract(contractAddress, abi, signer);
 
 const address2: String = '0xD3e855Fa9564f747571C4324695c20AAC726B1Ad';
-/// account address 2: 0xD3e855Fa9564f747571C4324695c20AAC726B1Ad
 
 const transfer = async () => {
     // encrypted transfer
     const fhevm: any = await getInstance();
 
-    const transferAmount = 10;
+    const transferAmount = 1;
     const encryptedTransferAmount = fhevm.encrypt64(transferAmount);
     // calling contract. transfer caused ambiguity error
     // const transaction = await contract.transfer(address2, encryptedTransferAmount);

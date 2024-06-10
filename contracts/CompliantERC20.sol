@@ -51,20 +51,9 @@ contract CompliantERC20 is EncryptedERC20 {
         if (wallet == msg.sender) {
             return TFHE.reencrypt(balances[msg.sender], publicKey, 0);
         }
-
-        uint64 userCountry = rulesContract.whitelistedWallets(msg.sender);
-        require(userCountry > 0, "You're not registered as a country wallet");
-
-        euint64 walletCountry = identityContract.getIdentifier(
-            wallet,
-            "country"
-        );
-        ebool sameCountry = TFHE.eq(walletCountry, userCountry);
         euint64 balance = TFHE.isInitialized(balances[wallet])
             ? balances[wallet]
             : TFHE.asEuint64(0);
-        balance = TFHE.select(sameCountry, balance, TFHE.asEuint64(0));
-
         return TFHE.reencrypt(balance, publicKey, 0);
     }
 
@@ -82,7 +71,15 @@ contract CompliantERC20 is EncryptedERC20 {
             TFHE.asEuint64(0)
         );
 
-        amount = rulesContract.transfer(from, to, amount);
+        ebool eligible = rulesContract.transfer(to);
+        require(
+            TFHE.decrypt(eligible),
+            "Operation is not permitted due to age restrictions"
+        );
+        // require(
+        //     TFHE.isInitialized(eligible),
+        //     "Operation is not permitted due to age restrictions"
+        // );
 
         balances[to] = balances[to] + amount;
         balances[from] = balances[from] - amount;

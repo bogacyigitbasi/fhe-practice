@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause-Clear
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
@@ -33,6 +33,17 @@ contract IdentityRegistry is Reencrypt, Ownable2Step {
 
     constructor() Ownable(msg.sender) {}
 
+    // Add user
+    function addDid(address wallet) public onlyRegistrar {
+        require(
+            identities[wallet].registrarId == 0,
+            "This wallet is already registered"
+        );
+        Identity storage newIdentity = identities[wallet];
+        newIdentity.registrarId = registrars[msg.sender];
+        emit NewDid(wallet);
+    }
+
     function addRegistrar(address wallet, uint registrarId) public onlyOwner {
         require(registrarId > 0, "registrarId needs to be > 0");
         registrars[wallet] = registrarId;
@@ -43,17 +54,6 @@ contract IdentityRegistry is Reencrypt, Ownable2Step {
         require(registrars[wallet] > 0, "wallet is not registrar");
         registrars[wallet] = 0;
         emit RemoveRegistrar(wallet);
-    }
-
-    // Add user
-    function addDid(address wallet) public onlyRegistrar {
-        require(
-            identities[wallet].registrarId == 0,
-            "This wallet is already registered"
-        );
-        Identity storage newIdentity = identities[wallet];
-        newIdentity.registrarId = registrars[msg.sender];
-        emit NewDid(wallet);
     }
 
     function removeDid(
@@ -73,7 +73,7 @@ contract IdentityRegistry is Reencrypt, Ownable2Step {
     // Set user's identifiers
     function setIdentifier(
         address wallet,
-        string calldata identifier,
+        string calldata identifier, //???
         bytes calldata encryptedValue
     ) public {
         euint64 value = TFHE.asEuint64(encryptedValue);
@@ -172,13 +172,7 @@ contract IdentityRegistry is Reencrypt, Ownable2Step {
     function _getIdentifier(
         address wallet,
         string calldata identifier
-    )
-        internal
-        view
-        onlyExistingWallet(wallet)
-        onlyAllowed(wallet, identifier)
-        returns (euint64)
-    {
+    ) internal view onlyExistingWallet(wallet) returns (euint64) {
         return identities[wallet].identifiers[identifier];
     }
 
@@ -205,12 +199,12 @@ contract IdentityRegistry is Reencrypt, Ownable2Step {
         _;
     }
 
-    modifier onlyAllowed(address wallet, string memory identifier) {
-        require(
-            owner() == msg.sender ||
-                permissions[wallet][msg.sender][identifier],
-            "User didn't give you permission to access this identifier."
-        );
-        _;
-    }
+    //     modifier onlyAllowed(address wallet, string memory identifier) {
+    //         require(
+    //             // owner() == msg.sender ||
+    //             permissions[wallet][msg.sender][identifier],
+    //             "User didn't give you permission to access this identifier."
+    //         );
+    //         _;
+    //     }
 }
