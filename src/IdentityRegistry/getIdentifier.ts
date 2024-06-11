@@ -11,6 +11,9 @@ const contract = new Contract(process.env.IDENTITY_REGISTRY, abi, signer);
 
 const address2 = process.env.USER_2_PUBLIC_ADDRESS;
 const contractAddress = process.env.IDENTITY_REGISTRY;
+
+// returns encrypted
+// need to change as reencrypt and with a new pubKey we can decrypt
 const getIdentifier = async () => {
     const encryptedIdentifier = await contract.getIdentifier(address2, "age");
     console.log("identifier", encryptedIdentifier);

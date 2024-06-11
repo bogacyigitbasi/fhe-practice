@@ -2,17 +2,17 @@
 
 
 const { Wallet, Contract } = require('ethers');
-// const { getInstance, provider } = require('./instance.ts');
 import { getInstance, provider } from "../instance";
-// const hre = require('hardhat'); //will get abi here
 import "dotenv/config";
-// const { vars } = require("hardhat/config");
+
+// abi
 const abi = require('../../artifacts/contracts/CompliantERC20.sol/abi.json');
 
+// signer
 const signer = new Wallet(process.env.ZAMA_PRIVATE_KEY, provider);
 const contract = new Contract(process.env.CompliantERC20, abi, signer);
 
-
+// totalSupply is public
 const mint = async () => {
     const fhevm: any = await getInstance();
     console.log("have the instance");

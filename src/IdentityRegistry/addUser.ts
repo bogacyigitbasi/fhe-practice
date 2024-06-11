@@ -6,6 +6,8 @@ import { getInstance, provider } from "../instance";
 import "dotenv/config";
 const abi = require('../../artifacts/contracts/IdentityRegistry.sol/abi.json');
 
+
+// only registrar can add a user
 const registrar = new Wallet(process.env.REGISTRAR_PRIVATE_KEY, provider);
 const contract = new Contract(process.env.IDENTITY_REGISTRY, abi, registrar);
 const address2 = process.env.USER_3_PUBLIC_ADDRESS;

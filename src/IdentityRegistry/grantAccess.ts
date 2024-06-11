@@ -42,8 +42,8 @@ const grantAccess = async () => {
     //     pubKey.eip712.message
     // );
 
-    // const encryptedBirthdate = await contract.reencryptIdentifier(signer, "birthdate", pubKey.publicKey, signature);
-    // console.log("Encrypted birthdate", encryptedBirthdate)
+    // const age = await contract.reencryptIdentifier(signer, "age", pubKey.publicKey, signature);
+    // console.log("Encrypted birthdate", age)
 
 
 };

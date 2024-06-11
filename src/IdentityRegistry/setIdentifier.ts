@@ -2,15 +2,15 @@
 
 
 const { Wallet, Contract } = require('ethers');
-// const { getInstance, provider } = require('./instance.ts');
 import { getInstance, provider } from "../instance";
-// const hre = require('hardhat'); //will get abi here
 import "dotenv/config";
 // const { vars } = require("hardhat/config");
 const abi = require('../../artifacts/contracts/IdentityRegistry.sol/abi.json');
 
 const registrar = new Wallet(process.env.REGISTRAR_PRIVATE_KEY, provider);
 const contract = new Contract(process.env.IDENTITY_REGISTRY, abi, registrar);
+
+// set age for a user
 const address2 = process.env.USER_3_PUBLIC_ADDRESS;
 
 const setIdentifier = async () => {

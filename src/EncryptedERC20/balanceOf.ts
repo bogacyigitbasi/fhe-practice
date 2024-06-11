@@ -4,10 +4,11 @@ const { Wallet, Contract } = require('ethers');
 import { getInstance, provider } from "../instance";
 import "dotenv/config";
 
-// const { vars } = require("hardhat/config");
 const abi = require('../../artifacts/contracts/EncryptedERC20.sol/abi.json');
+// signer
 const signer = new Wallet(process.env.ZAMA_PRIVATE_KEY, provider);
 const sender = process.env.ZAMA_PUBLIC_ADDRESS;
+// contract
 const contractAddress = process.env.ENCRYPTEDERC20_CONTRACT_ADDRESS;
 const contract = new Contract(contractAddress, abi, signer);
 
